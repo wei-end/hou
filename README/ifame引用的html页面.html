@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .par {
+      width: 100%;
+      height: 500px;
+      background-color: pink;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="par">
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <button>保存</button>
+  </div>
+  <script>
+    //解决跨域问题
+    document.domain = 'localhost'
+    let position = 0
+    window.addEventListener('message', (e) => {
+      if (e.data.type == 'insertinto') {
+        //此时就是复制操作
+        // document.querySelector('textarea').value = e.data.data
+        //监听textarea的失去焦点事件,向失去焦点的位置插入内容
+        let value = document.querySelector('textarea').value
+        document.querySelector('textarea').value = value.slice(0, position) + e.data.data + value.slice(position)
+      }
+    })
+    document.querySelector('textarea').addEventListener('blur', (e) => {
+      //获取失去焦点的位置
+      position = e.target.selectionStart
+    })
+    document.querySelector('button').addEventListener('click', () => {
+      console.log(111);
+      window.parent.postMessage({ type: 'save', data: document.querySelector('textarea').value }, '*')
+      //window.top     此页面的最顶级父级
+      // window.parent   此页面的直接调用父级
+    })
+
+  </script>
+</body>
+
+</html>

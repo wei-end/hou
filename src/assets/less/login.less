@@ -1,0 +1,235 @@
+//混入的css
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    .flex();
+    width: 100%;
+    height: 100%;
+    background-color: #abc6f8;
+    background-image: radial-gradient(closest-side,
+            rgb(255, 255, 255),
+            rgba(235, 105, 78, 0)),
+        radial-gradient(closest-side, rgb(250, 203, 203), rgba(243, 11, 164, 0)),
+        radial-gradient(closest-side, rgb(237, 252, 202), rgba(254, 234, 131, 0)),
+        radial-gradient(closest-side, rgb(197, 248, 241), rgba(170, 142, 245, 0)),
+        radial-gradient(closest-side, rgb(206, 200, 243), rgba(248, 192, 147, 0));
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax,
+        110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,
+        -30vmax -10vmax, 50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s movement linear infinite;
+}
+
+.content {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+
+    &>div {
+        width: 50%;
+    }
+}
+
+.left {
+    position: relative;
+
+    img {
+        position: absolute;
+    }
+
+    .circle {
+        z-index: 1;
+        width: 90%;
+        left: 30%;
+    }
+
+    .circleStartAni {
+        animation: circleStartAni 2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+    }
+
+    .circleEndAni {
+        // animation:  3s;
+        animation-name: circleEndAni;
+        animation-direction: alternate;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-duration: 3s;
+    }
+
+    .rocket {
+        left: -50%;
+        top: 20%;
+        width: 70%;
+        z-index: 2;
+    }
+
+    .rocketSatrtAni {
+        animation: rocketSatrtAni 2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+    }
+
+    .rocketEndAni {
+        animation-name: rocketEndAni;
+        animation-direction: alternate;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-duration: 3s;
+    }
+}
+
+.right {
+    padding-bottom: 10%;
+    .flex();
+    flex-direction: column;
+
+    h1 {
+        margin-bottom: 100px;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .inputGroup {
+            position: relative;
+            margin-bottom: 30px;
+
+            input {
+                width: 90%;
+                padding: 10px;
+                border: 1px solid #fff;
+                outline: none;
+                border-radius: 5px;
+                font-size: 1em;
+
+                &:focus {
+                    border: 1px solid #a1e8fa;
+                }
+            }
+
+            span {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                padding: 10px;
+                pointer-events: none;
+                color: rgba(0, 0, 0, 0.5);
+                text-transform: uppercase;
+                transition: 0.75s;
+                font-size: 1em;
+            }
+
+            input:focus+span,
+            //有值之后的属性
+            input:valid+span {
+                color: #a5e5f9;
+                transform: translateY(-20px);
+                background-color: #e5eff7;
+                font-size: 10px;
+                background-image: linear-gradient(to bottom, #dfebfc, #fff);
+                left: 5px;
+                border-radius: 5px;
+                padding-bottom: 2px;
+            }
+        }
+    }
+
+    .btn {
+        width: 100%;
+        .flex();
+        margin-bottom: 40px;
+
+        .el-button {
+            background-color: #eff4f4;
+            border: 1px solid #a1e8fa;
+        }
+    }
+}
+
+/deep/.el-divider {
+    .el-divider__text {
+        background-color: #f0f6ef;
+    }
+
+}
+
+
+
+
+@keyframes circleStartAni {
+    0% {
+        width: 10%;
+    }
+
+    100% {
+        width: 90%;
+        transform: translate(-30%, 0%);
+    }
+}
+
+@keyframes circleEndAni {
+    0% {
+        transform: translate(-30%, 0%);
+    }
+
+    100% {
+        transform: translate(-30%, 5%);
+    }
+}
+
+@keyframes rocketSatrtAni {
+    0% {
+        width: 40%;
+    }
+
+    100% {
+        width: 70%;
+        transform: translate(90%, -10%);
+    }
+}
+
+@keyframes rocketEndAni {
+    0% {
+        transform: translate(90%, -10%);
+    }
+
+    100% {
+        transform: translate(90%, -15%);
+    }
+}
+
+@keyframes movement {
+
+    0%,
+    100% {
+        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+
+    25% {
+        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+
+    50% {
+        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+
+    75% {
+        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+}
